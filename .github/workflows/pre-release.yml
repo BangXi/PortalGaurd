@@ -33,4 +33,4 @@ jobs:
           automatic_release_tag: latest
           prerelease: true
           files: |
-            PortalGuard/target/*.jar
+            PortalGuard/target/PortalGuard-1.0.2.jar
