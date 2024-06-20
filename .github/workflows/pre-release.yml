@@ -13,24 +13,28 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v2
-      
-      # Setup JDK
+
       - name: Setup Java JDK
         uses: actions/setup-java@v3
         with:
-          java-version: 8
+          java-version: '8'
           distribution: 'zulu'
-        
-      # Build
-      - name: Build with Maven
-        run: mvn package
 
-      # Auto release
+      - name: Build with Maven
+        run: mvn -B package
+
+      - name: List JAR files
+        id: list-jar
+        run: |
+          JAR_FILES=$(find . -type f -name '*.jar' | head -n 1)
+          echo "First JAR file path: $JAR_FILES"
+          echo "::set-output name=jar_files::$JAR_FILES"
+
       - name: Auto release
+        if: success()
         uses: "marvinpinto/action-automatic-releases@latest"
         with:
           repo_token: "${{ secrets.GITHUB_TOKEN }}"
           automatic_release_tag: latest
           prerelease: true
-          files: |
-            PortalGuard/target/PortalGuard-1.0.2.jar
+          files: ${{ steps.list-jar.outputs.jar_files }}
