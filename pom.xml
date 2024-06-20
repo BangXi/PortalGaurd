@@ -5,7 +5,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>me.metallicgoat</groupId>
-    <artifactId>PortalGaurd</artifactId>
+    <artifactId>PortalGuard</artifactId>
     <version>1.0.2</version>
 
     <repositories>
